@@ -5,7 +5,7 @@ import os
 import matplotlib.pyplot as plt
 
 def send_photo(user_id):
-    auth="???"
+    auth="bot???:????"
     url = "https://api.telegram.org//sendPhoto".format(auth);
     files = {'photo': open('tmp.png', 'rb')}
     data = {'chat_id' : user_id}
@@ -82,7 +82,7 @@ def real_temperature(info,user_id):
     return res
 
 def whole(fun=0,city="新竹市東區",user_id=0):   #function => 0 for temp, 1 for six_hr_rain, 2 for both
-    #auth_code='???'
+    auth_code='???'
     if city=="新竹市東區":
         res = requests.get("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-053?Authorization={}&limit=3&offset=0&format=JSON&sort=time".format(auth_code))
         parsed_result=json.loads(res.text)
