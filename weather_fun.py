@@ -5,14 +5,13 @@ import os
 import matplotlib.pyplot as plt
 
 def send_photo(user_id):
-    auth="bot???:????"
-    url = "https://api.telegram.org//sendPhoto".format(auth);
+    url = "https://api.telegram.org/bot1303855949:AAFbgDormfHInUA0tx4sM0SZ50YCgIbSqK0/sendPhoto";
     files = {'photo': open('tmp.png', 'rb')}
     data = {'chat_id' : user_id}
     r= requests.post(url, files=files, data=data)
     print(r.status_code, r.reason, r.content)
 
-chat_id="???"    #token of the telegram bot
+chat_id="1303855949:AAFbgDormfHInUA0tx4sM0SZ50YCgIbSqK0"    #token of the telegram bot
 
 def six_hr_rain_prob(info,user_id):
     def extract_labels_rainprob(item):
@@ -82,25 +81,25 @@ def real_temperature(info,user_id):
     return res
 
 def whole(fun=0,city="新竹市東區",user_id=0):   #function => 0 for temp, 1 for six_hr_rain, 2 for both
-    auth_code='???'
+    #auth_code='CWB-7E4B0163-BE1B-4DE8-A559-E077AC34FB9F'
     if city=="新竹市東區":
-        res = requests.get("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-053?Authorization={}&limit=3&offset=0&format=JSON&sort=time".format(auth_code))
+        res = requests.get("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-053?Authorization=CWB-7E4B0163-BE1B-4DE8-A559-E077AC34FB9F&limit=3&offset=0&format=JSON&sort=time")
         parsed_result=json.loads(res.text)
         get_location_info = parsed_result['records']['locations'][0]['location'][1]
     if city=="台北市信義區":
-        res = requests.get("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-061?Authorization={}&limit=3&offset=0&format=JSON&sort=time＆locationName=信義區".format(auth_code))
+        res = requests.get("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-061?Authorization=CWB-7E4B0163-BE1B-4DE8-A559-E077AC34FB9F&limit=3&offset=0&format=JSON&sort=time＆locationName=信義區")
         parsed_result=json.loads(res.text)
         get_location_info = parsed_result['records']['locations'][0]['location'][0]
     if city=="台北市南港區":
-        res = requests.get("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-061?Authorization={}&limit=3&offset=0&format=JSON&sort=time＆locationName=南港區".format(auth_code))
+        res = requests.get("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-061?Authorization=CWB-7E4B0163-BE1B-4DE8-A559-E077AC34FB9F&limit=3&offset=0&format=JSON&sort=time＆locationName=南港區")
         parsed_result=json.loads(res.text)
         get_location_info = parsed_result['records']['locations'][0]['location'][0]
     if city=='新北市汐止區':
-        res = requests.get("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-069?Authorization={}&limit=3&offset=0&format=JSON&sort=time＆locationName=汐止區".format(auth_code))
+        res = requests.get("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-069?Authorization=CWB-7E4B0163-BE1B-4DE8-A559-E077AC34FB9F&limit=3&offset=0&format=JSON&sort=time＆locationName=汐止區")
         parsed_result=json.loads(res.text)
         get_location_info = parsed_result['records']['locations'][0]['location'][0]
-    if city=='基隆市中山區':   
-        res = requests.get("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-049?Authorization={}&format=JSON&limit=3&offset=0&format=JSON&sort=time&locationName=%E4%B8%AD%E5%B1%B1%E5%8D%80".format(auth_code))
+    if city=='基隆市中山區':    #https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-049?Authorization=CWB-7E4B0163-BE1B-4DE8-A559-E077AC34FB9F&format=JSON&locationName=%E4%B8%AD%E5%B1%B1%E5%8D%80
+        res = requests.get("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-049?Authorization=CWB-7E4B0163-BE1B-4DE8-A559-E077AC34FB9F&format=JSON&limit=3&offset=0&format=JSON&sort=time&locationName=%E4%B8%AD%E5%B1%B1%E5%8D%80")
         parsed_result=json.loads(res.text)
         get_location_info = parsed_result['records']['locations'][0]['location'][0]
 
@@ -111,5 +110,4 @@ def whole(fun=0,city="新竹市東區",user_id=0):   #function => 0 for temp, 1 
     elif fun==2:
         _str = six_hr_rain_prob(get_location_info,user_id) + real_temperature(get_location_info,user_id)
     return _str
-
 
